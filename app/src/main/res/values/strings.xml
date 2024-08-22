@@ -1,3 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Agenda</string>
+    <string name="app_name" translatable="false">Agenda</string>
+
+    <string-array name="lingue">
+        <item>English</item>
+        <item>Italiano</item>
+        <item>Español</item>
+        <item>Deutsch</item>
+    </string-array>
 </resources>
+
+

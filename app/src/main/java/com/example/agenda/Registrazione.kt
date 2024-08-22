@@ -3,7 +3,6 @@ package com.example.agenda
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -25,11 +24,11 @@ class Registrazione : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.textView.setOnClickListener {
-            val intent = Intent(this, Registrazione::class.java)
+            val intent = Intent(this, Login::class.java) // Cambiato per andare alla pagina di login
             startActivity(intent)
         }
 
-        binding. bottoneRegistrati.setOnClickListener {
+        binding.bottoneRegistrati.setOnClickListener {
             val email = binding.email.text.toString()
             val pass = binding.password.text.toString()
             val confPass = binding.confermaPassword.text.toString()
@@ -41,8 +40,9 @@ class Registrazione : AppCompatActivity() {
                     // Creazione dell'utente con Firebase Authentication
                     firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                         if (it.isSuccessful) {
-                            val intent = Intent(this, Registrazione::class.java)
+                            val intent = Intent(this, MainActivity::class.java) // Porta alla MainActivity
                             startActivity(intent)
+                            finish() // Chiude l'activity corrente in modo che non si possa tornare indietro con il pulsante "indietro"
                         } else {
                             Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
                         }
@@ -56,7 +56,6 @@ class Registrazione : AppCompatActivity() {
         }
 
         // Configurazione dell'interfaccia a schermo intero
-        enableEdgeToEdge()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -64,3 +63,4 @@ class Registrazione : AppCompatActivity() {
         }
     }
 }
+

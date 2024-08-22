@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="start">
+
+        <!-- Email Section -->
+        <TextView
+            android:id="@+id/EmailProifloT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/EmailProiflo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="user@example.com"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start|center_vertical"/>
+
+        <!-- Password Section -->
+        <TextView
+            android:id="@+id/tvPasswordT"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="password1234"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:gravity="start|center_vertical" />
+
+        <!-- Language Section -->
+        <TextView
+            android:id="@+id/Lingue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lingua"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"/>
+
+        <Spinner
+            android:id="@+id/menuLingue"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"/>
+
+        <!-- Notifications Section -->
+        <TextView
+            android:id="@+id/Notifiche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Notifiche"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <Switch
+            android:id="@+id/switchNotifiche"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Abilita le notifiche"
+            android:layout_marginTop="8dp"/>
+
+        <!-- App Version Section -->
+        <TextView
+            android:id="@+id/VersioneApp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Versione App"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="16dp"/>
+
+        <TextView
+            android:id="@+id/Versione"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1.0.0"
+            android:textSize="18sp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="32dp"
+            android:gravity="start|center_vertical"/>
+
+        <!-- Logout Button -->
+        <Button
+            android:id="@+id/bottoneLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="@android:color/white"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="@color/black"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+</ScrollView>
