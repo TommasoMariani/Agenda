@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <item
+        android:id="@+id/iconaHome"
+        android:icon="@drawable/main"
+        android:title="Home"/>
+
+    <item
+        android:id="@+id/iconaPreferiti"
+        android:icon="@drawable/preferiti"
+        android:title="Preferiti"/>
+
+    <item
+        android:id="@+id/iconaAccount"
+        android:icon="@drawable/account"
+        android:title="Account"/>
+
+
 </menu>
