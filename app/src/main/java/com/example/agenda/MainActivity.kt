@@ -14,7 +14,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main) // Deve essere chiamato prima di accedere alle view
+        setContentView(R.layout.activity_main)
 
         enableEdgeToEdge()
 
@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         val fragmentPreferiti = FragmentPreferiti()
         val fragmentImpostazioni = FragmentImpostazioni()
 
-        // Carica il primo Fragment (Home) all'avvio
         makeCurrentFragment(fragmentHome)
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.navMenu)
@@ -53,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun makeCurrentFragment(fragment: Fragment) =
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.wrapper, fragment) // Usa l'ID "wrapper" dal layout XML
+            replace(R.id.wrapper, fragment)
             commit()
         }
 }

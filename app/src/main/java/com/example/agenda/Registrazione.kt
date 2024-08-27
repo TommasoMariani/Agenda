@@ -17,7 +17,6 @@ class Registrazione : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Inizializzazione del binding e FirebaseAuth
         binding = ActivityRegistrazioneBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -33,7 +32,7 @@ class Registrazione : AppCompatActivity() {
             val pass = binding.password.text.toString()
             val confPass = binding.confermaPassword.text.toString()
 
-            // Controllo che tutti i campi siano riempiti
+           //controllo campi
             if (email.isNotEmpty() && pass.isNotEmpty() && confPass.isNotEmpty()) {
                 // Controllo che le password corrispondano
                 if (pass == confPass) {
@@ -55,7 +54,7 @@ class Registrazione : AppCompatActivity() {
             }
         }
 
-        // Configurazione dell'interfaccia a schermo intero
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

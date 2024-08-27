@@ -61,7 +61,6 @@ class FragmentImpostazioni : Fragment() {
         val notificationSwitch = view.findViewById<Switch>(R.id.switchNotifiche)
         notificationSwitch.isChecked = sharedPreferences.getBoolean("notifications_enabled", false)
 
-        // Listener per salvare lo stato dello Switch nelle SharedPreferences
         notificationSwitch.setOnCheckedChangeListener { _, isChecked ->
             sharedPreferences.edit().putBoolean("notifications_enabled", isChecked).apply()
             if (isChecked) {
@@ -77,7 +76,6 @@ class FragmentImpostazioni : Fragment() {
             logout()
         }
 
-        // Restituisce la View per essere visualizzata dal Fragment
         return view
     }
 

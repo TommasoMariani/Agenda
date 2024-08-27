@@ -1,16 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".fragment.FragmentHome">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:textSize="50sp"
-        android:gravity="center"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Home" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
 
-</FrameLayout>
+        <!-- Visualizzazione del Calendario -->
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Campo per il Nome dell'Evento -->
+        <EditText
+            android:id="@+id/eventName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="event_name_hint"
+            android:inputType="text"
+            android:layout_marginTop="6dp"
+            android:autofillHints="username" />
+
+        <!-- Selettore di Luogo con Mappa -->
+
+
+        <!-- Sezione per la Selezione dell'Orario dell'Evento -->
+        <Button
+            android:id="@+id/selezionaLuogo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:text="Seleziona Luogo" />
+
+        <TextView
+            android:id="@+id/eventTimeLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="event_time_label"
+            android:layout_marginTop="16dp"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TimePicker
+            android:id="@+id/eventTimePicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            android:layout_marginTop="8dp" />
+
+        <!-- Sezione per Attivare le Notifiche dell'Evento -->
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/notificationSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:text="enable_notifications" />
+
+
+        <!-- Pulsante per Aggiungere un Nuovo Evento -->
+        <Button
+            android:id="@+id/addEventButton"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="add_event_button"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+
+</ScrollView>

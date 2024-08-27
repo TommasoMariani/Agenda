@@ -26,14 +26,14 @@ class Utente : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_utente)
 
-        // Applica le impostazioni di padding per evitare che la UI venga nascosta dalle system bars.
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // Configura le SharedPreferences
+
         sharedPreferences = getSharedPreferences("user_settings", Context.MODE_PRIVATE)
 
         // Spinner per il cambio lingua
@@ -51,12 +51,11 @@ class Utente : AppCompatActivity() {
                     2 -> setLocale("es")  // Spagnolo
                     3 -> setLocale("de")  // Tedesco
 
-                    // Aggiungi altre lingue qui
+
                 }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {
-                // Nessuna azione
             }
         }
 
@@ -101,7 +100,7 @@ class Utente : AppCompatActivity() {
 
     // Funzione di logout
     private fun logout() {
-        // Cancella le informazioni dell'utente (ad esempio, SharedPreferences)
+
         sharedPreferences.edit().clear().apply()
 
         // Torna alla pagina di login

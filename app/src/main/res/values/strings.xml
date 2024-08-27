@@ -2,14 +2,20 @@
 <resources>
     <string name="app_name" translatable="false">Agenda</string>
 
+    <!-- Altre stringhe -->
+    <string name="selezionaLuogoooo">Seleziona il luogo</string>
+
     <string-array name="lingue">
         <item>English</item>
         <item>Italiano</item>
         <item>Español</item>
         <item>Deutsch</item>
     </string-array>
-    <!-- TODO: Remove or change this placeholder text -->
+
+    <!-- Placeholder text (potresti voler rimuovere o modificare in futuro) -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_mappa">Mappa</string>
+
+    <!-- Aggiunta della stringa richiesta per il canale di notifica -->
+    <string name="default_notification_channel_id">default_channel</string>
 </resources>
-
-

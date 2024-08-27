@@ -1,60 +1,125 @@
 package com.example.agenda.fragment
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.*
+import androidx.fragment.app.Fragment
+import androidx.appcompat.widget.SwitchCompat
 import com.example.agenda.R
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
-
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentHome.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentHome : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+
+    private lateinit var calendarView: CalendarView
+    private lateinit var eventName: EditText
+    private lateinit var selectLocationButton: Button
+    private lateinit var eventTimePicker: TimePicker
+    private lateinit var notificationSwitch: SwitchCompat
+    private lateinit var addEventButton: Button
+    private lateinit var database: DatabaseReference
+
+    private var selectedDate: String = ""
+    private var selectedTime: String = ""
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+
+
+        database = FirebaseDatabase.getInstance().getReference("events")
+
+        // Collegamento delle viste
+        calendarView = view.findViewById(R.id.calendarView)
+        eventName = view.findViewById(R.id.eventName)
+        selectLocationButton = view.findViewById(R.id.selezionaLuogo) // Corretto qui
+        eventTimePicker = view.findViewById(R.id.eventTimePicker)
+        notificationSwitch = view.findViewById(R.id.notificationSwitch)
+        addEventButton = view.findViewById(R.id.addEventButton)
+
+        // Configurazione del CalendarView
+        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
+            selectedDate = "$dayOfMonth/${month + 1}/$year"
+        }
+
+        // Configurazione del TimePicker
+        eventTimePicker.setIs24HourView(true)
+        eventTimePicker.setOnTimeChangedListener { _, hourOfDay, minute ->
+            selectedTime = String.format("%02d:%02d", hourOfDay, minute)
+        }
+
+        // Gestione del pulsante per selezionare la posizione
+        selectLocationButton.setOnClickListener {
+            // Implementazione per selezionare il luogo (da aggiungere)
+            val intent = Intent(context, Mappa::class.java) // Sostituisci con la tua attività per la mappa
+            startActivityForResult(intent, 1)
+        }
+
+        // Gestione del pulsante per aggiungere un evento
+        addEventButton.setOnClickListener {
+            addEventToFirebase()
+        }
+
+        return view
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment FragmentHome.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentHome().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    // Funzione per aggiungere un evento a Firebase
+    private fun addEventToFirebase() {
+        val name = eventName.text.toString()
+        val location = selectLocationButton.text.toString()
+        val notificationsEnabled = notificationSwitch.isChecked
+
+        if (name.isEmpty() || selectedDate.isEmpty() || selectedTime.isEmpty()) {
+            Toast.makeText(context, "Completa tutti i campi obbligatori", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val eventId = database.push().key!!
+        val event = Event(eventId, name, selectedDate, selectedTime, location, notificationsEnabled)
+
+        database.child(eventId).setValue(event).addOnCompleteListener {
+            if (it.isSuccessful) {
+                Toast.makeText(context, "Evento aggiunto con successo", Toast.LENGTH_SHORT).show()
+                resetFields()
+            } else {
+                Toast.makeText(context, "Errore durante l'aggiunta dell'evento", Toast.LENGTH_SHORT).show()
             }
+        }
     }
+
+    // Funzione per resettare i campi dopo l'aggiunta dell'evento
+    private fun resetFields() {
+        eventName.text.clear()
+        selectLocationButton.text = getString(R.string.selezionaLuogoooo) // Corretto qui
+        notificationSwitch.isChecked = false
+        eventTimePicker.currentHour = 0
+        eventTimePicker.currentMinute = 0
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) { // Corretto qui
+            val location = data?.getStringExtra("location")
+            selectLocationButton.text = location
+        }
+    }
+
+    // Classe per rappresentare l'evento
+    data class Event(
+        val id: String,
+        val name: String,
+        val date: String,
+        val time: String,
+        val location: String,
+        val notificationsEnabled: Boolean
+    )
 }
+

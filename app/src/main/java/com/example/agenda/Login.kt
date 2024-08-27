@@ -50,7 +50,6 @@ class Login : AppCompatActivity() {
             }
         }
 
-        // Configurazione dell'interfaccia a schermo intero
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -61,11 +60,11 @@ class Login : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
 
-        // Se l'utente è già autenticato, lo reindirizziamo alla MainActivity
+        // Se l'utente è già autenticato, lo reindirizza alla MainActivity
         if (firebaseAuth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish() // Chiudiamo l'attività corrente per impedire il ritorno al login
+            finish() //
         }
     }
 }
