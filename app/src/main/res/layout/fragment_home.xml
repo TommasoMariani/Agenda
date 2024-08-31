@@ -16,38 +16,43 @@
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"/>
+            android:layout_marginBottom="16dp" />
 
         <!-- Campo per il Nome dell'Evento -->
         <EditText
-            android:id="@+id/eventName"
+            android:id="@+id/nomeEvento"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:hint="event_name_hint"
+            android:hint="Nome Evento"
             android:inputType="text"
-            android:layout_marginTop="6dp"
-            android:autofillHints="username" />
+            android:layout_marginTop="6dp" />
 
-        <!-- Selettore di Luogo con Mappa -->
-
-
-        <!-- Sezione per la Selezione dell'Orario dell'Evento -->
-        <Button
-            android:id="@+id/selezionaLuogo"
+        <!-- Campi per inserire la posizione -->
+        <EditText
+            android:id="@+id/provincia"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:text="Seleziona Luogo" />
+            android:hint="Provincia"
+            android:inputType="text"
+            android:layout_marginTop="16dp" />
 
-        <TextView
-            android:id="@+id/eventTimeLabel"
+        <EditText
+            android:id="@+id/citta"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="event_time_label"
-            android:layout_marginTop="16dp"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:layout_height="48dp"
+            android:hint="Città"
+            android:inputType="text"
+            android:layout_marginTop="8dp" />
 
+        <EditText
+            android:id="@+id/via"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Via"
+            android:inputType="text"
+            android:layout_marginTop="8dp" />
+
+        <!-- TimePicker per selezionare l'orario dell'evento -->
         <TimePicker
             android:id="@+id/eventTimePicker"
             android:layout_width="match_parent"
@@ -57,19 +62,19 @@
 
         <!-- Sezione per Attivare le Notifiche dell'Evento -->
         <androidx.appcompat.widget.SwitchCompat
-            android:id="@+id/notificationSwitch"
+            android:id="@+id/notifiSwitch"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
-            android:text="enable_notifications" />
-
+            android:text="Abilita notifiche" />
 
         <!-- Pulsante per Aggiungere un Nuovo Evento -->
         <Button
-            android:id="@+id/addEventButton"
+            android:id="@+id/aggiungiEvento"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:text="add_event_button"
+            android:text="Aggiungi Evento"
+            android:backgroundTint="@color/black"
             android:layout_marginTop="16dp" />
 
     </LinearLayout>

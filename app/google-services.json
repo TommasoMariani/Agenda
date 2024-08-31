@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "462211561887",
+    "firebase_url": "https://agenda-db0f1-default-rtdb.firebaseio.com",
     "project_id": "agenda-db0f1",
     "storage_bucket": "agenda-db0f1.appspot.com"
   },

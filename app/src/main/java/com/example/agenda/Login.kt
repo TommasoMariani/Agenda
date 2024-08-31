@@ -2,69 +2,67 @@ package com.example.agenda
 
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.example.agenda.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 
-class Login : AppCompatActivity() {
+class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_login)
 
-        binding = ActivityLoginBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
+        // Inizializza FirebaseAuth
         firebaseAuth = FirebaseAuth.getInstance()
 
-        enableEdgeToEdge()
+        val loginButton = findViewById<Button>(R.id.bottoneAccedi)
+        val emailInput = findViewById<EditText>(R.id.email)
+        val passwordInput = findViewById<EditText>(R.id.password)
+        val registerText = findViewById<TextView>(R.id.textView) // Cambiato a TextView
 
-        // Listener per il passaggio alla schermata di registrazione
-        binding.textView.setOnClickListener {
+        // Listener per passare alla schermata di registrazione
+        registerText.setOnClickListener {
             val intent = Intent(this, Registrazione::class.java)
             startActivity(intent)
         }
 
         // Listener per il pulsante di login
-        binding.bottoneAccedi.setOnClickListener {
-            val email = binding.email.text.toString()
-            val pass = binding.password.text.toString()
+        loginButton.setOnClickListener {
+            val email = emailInput.text.toString().trim()
+            val password = passwordInput.text.toString().trim()
 
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
-                firebaseAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        val intent = Intent(this, MainActivity::class.java)
-                        startActivity(intent)
-                    } else {
-                        Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+            if (email.isNotEmpty() && password.isNotEmpty()) {
+                // Login con Firebase Auth
+                firebaseAuth.signInWithEmailAndPassword(email, password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            // Naviga alla MainActivity
+                            val intent = Intent(this, MainActivity::class.java)
+                            startActivity(intent)
+                            finish() // Chiudi LoginActivity
+                        } else {
+                            // Mostra messaggio di errore
+                            Toast.makeText(this, "Errore di autenticazione: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
             } else {
                 Toast.makeText(this, "Tutti i campi sono obbligatori!", Toast.LENGTH_SHORT).show()
             }
-        }
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
         }
     }
 
     override fun onStart() {
         super.onStart()
-
-        // Se l'utente è già autenticato, lo reindirizza alla MainActivity
+        // Controlla se l'utente è già autenticato
         if (firebaseAuth.currentUser != null) {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
-            finish() //
+            finish()
         }
     }
 }

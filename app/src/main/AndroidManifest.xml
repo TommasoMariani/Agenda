@@ -35,10 +35,7 @@
             android:exported="false"
             android:label="@string/title_activity_mappa" />
         <activity
-            android:name=".Utente"
-            android:exported="false" />
-        <activity
-            android:name=".Login"
+            android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

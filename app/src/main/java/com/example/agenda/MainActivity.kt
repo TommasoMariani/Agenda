@@ -1,5 +1,6 @@
 package com.example.agenda
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -22,30 +23,49 @@ class MainActivity : AppCompatActivity() {
         val fragmentPreferiti = FragmentPreferiti()
         val fragmentImpostazioni = FragmentImpostazioni()
 
-        makeCurrentFragment(fragmentHome)
-
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.navMenu)
+
+        // Ripristina il frammento selezionato in base alle SharedPreferences
+        val lastSelectedFragment = getSharedPreferences("user_settings", Context.MODE_PRIVATE)
+            .getInt("last_selected_fragment", R.id.iconaHome)
+
+        when (lastSelectedFragment) {
+            R.id.iconaHome -> makeCurrentFragment(fragmentHome)
+            R.id.iconaPreferiti -> makeCurrentFragment(fragmentPreferiti)
+            R.id.iconaAccount -> makeCurrentFragment(fragmentImpostazioni)
+        }
+
         bottomNavigation.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.iconaHome -> {
                     makeCurrentFragment(fragmentHome)
+                    // Salva lo stato della selezione
+                    getSharedPreferences("user_settings", Context.MODE_PRIVATE)
+                        .edit().putInt("last_selected_fragment", R.id.iconaHome).apply()
                     true
                 }
                 R.id.iconaPreferiti -> {
                     makeCurrentFragment(fragmentPreferiti)
+                    // Salva lo stato della selezione
+                    getSharedPreferences("user_settings", Context.MODE_PRIVATE)
+                        .edit().putInt("last_selected_fragment", R.id.iconaPreferiti).apply()
                     true
                 }
                 R.id.iconaAccount -> {
                     makeCurrentFragment(fragmentImpostazioni)
+                    // Salva lo stato della selezione
+                    getSharedPreferences("user_settings", Context.MODE_PRIVATE)
+                        .edit().putInt("last_selected_fragment", R.id.iconaAccount).apply()
                     true
                 }
                 else -> false
             }
         }
 
+        // Rimuovi o modifica il listener per i WindowInsets se necessario
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)  // Imposta 0 per evitare padding inferiore
             insets
         }
     }

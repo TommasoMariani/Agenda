@@ -23,7 +23,7 @@ class Registrazione : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
         binding.textView.setOnClickListener {
-            val intent = Intent(this, Login::class.java) // Cambiato per andare alla pagina di login
+            val intent = Intent(this, LoginActivity::class.java) // Cambiato per andare alla pagina di login
             startActivity(intent)
         }
 
