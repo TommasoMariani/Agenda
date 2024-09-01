@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // Rimuovi o modifica il listener per i WindowInsets se necessario
+        
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0)  // Imposta 0 per evitare padding inferiore
