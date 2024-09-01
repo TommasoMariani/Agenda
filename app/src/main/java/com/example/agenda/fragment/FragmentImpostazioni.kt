@@ -17,6 +17,7 @@ import android.widget.Switch
 import androidx.fragment.app.Fragment
 import com.example.agenda.LoginActivity
 import com.example.agenda.R
+import com.google.firebase.auth.FirebaseAuth
 import java.util.Locale
 
 class FragmentImpostazioni : Fragment() {
@@ -98,30 +99,38 @@ class FragmentImpostazioni : Fragment() {
         Locale.setDefault(locale)
         val config = Configuration()
         config.setLocale(locale)
-        resources.updateConfiguration(config, resources.displayMetrics)
 
-        // Usa SharedPreferences per salvare la lingua selezionata
+
+        if (resources.configuration.locales[0] != locale) {
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+                requireActivity().createConfigurationContext(config)
+            } else {
+                requireActivity().resources.updateConfiguration(config, resources.displayMetrics)
+            }
+        }
+
+        // Salva la lingua selezionata
         sharedPreferences.edit().putString("selected_language", languageCode).apply()
 
-        // Aggiorna la lingua corrente
         currentLanguageCode = languageCode
-
-        // Usa SharedPreferences per salvare l'ID del frammento corrente
-        sharedPreferences.edit().putInt("last_selected_fragment", R.id.iconaAccount).apply()
-
         requireActivity().recreate()
     }
 
     private fun enableNotifications() {
-        // Implementa qui il codice per abilitare le notifiche
+        // Implementare qui il codice per abilitare le notifiche
+        Log.d("FragmentImpostazioni", "Notifications enabled")
     }
 
     private fun disableNotifications() {
-        // Implementa qui il codice per disabilitare le notifiche
+        // Implementare qui il codice per disabilitare le notifiche
+        Log.d("FragmentImpostazioni", "Notifications disabled")
     }
 
     private fun logout() {
         Log.d("FragmentImpostazioni", "Logout button clicked")
+
+        // FirebaseAuth signOut
+        FirebaseAuth.getInstance().signOut()
 
         sharedPreferences.edit().clear().apply()
 

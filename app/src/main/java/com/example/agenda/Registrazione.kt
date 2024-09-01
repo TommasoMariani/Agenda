@@ -32,18 +32,18 @@ class Registrazione : AppCompatActivity() {
             val pass = binding.password.text.toString()
             val confPass = binding.confermaPassword.text.toString()
 
-           //controllo campi
+            // Controllo campi
             if (email.isNotEmpty() && pass.isNotEmpty() && confPass.isNotEmpty()) {
                 // Controllo che le password corrispondano
                 if (pass == confPass) {
                     // Creazione dell'utente con Firebase Authentication
-                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
-                        if (it.isSuccessful) {
+                    firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
                             val intent = Intent(this, MainActivity::class.java) // Porta alla MainActivity
                             startActivity(intent)
                             finish() // Chiude l'activity corrente in modo che non si possa tornare indietro con il pulsante "indietro"
                         } else {
-                            Toast.makeText(this, it.exception.toString(), Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Errore: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                         }
                     }
                 } else {
@@ -54,7 +54,6 @@ class Registrazione : AppCompatActivity() {
             }
         }
 
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
@@ -62,4 +61,3 @@ class Registrazione : AppCompatActivity() {
         }
     }
 }
-
