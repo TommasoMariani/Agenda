@@ -1,0 +1,1 @@
+Dato che il progetto è stato cambiato in fase di creazione, parti di codice del primo sono state riutilizzate per il secondo, specialmente le pagine di login e registrazione e parte delle impostazioni
